@@ -2,9 +2,9 @@
 
 import * as React from "react";
 // import Link from "react-router-dom";
-
+import photo from "../assets/menu-background.jpeg";
 import { cn } from "@/lib/utils";
-import { Icons } from "../components/icons.tsx";
+import { TbBeach } from "react-icons/tb";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,38 +14,50 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { IconType } from "react-icons/lib";
 
-const components: { title: string; href: string; description: string }[] = [
+const components: {
+  icon: IconType;
+  title: string;
+  href: string;
+  description: string;
+}[] = [
   {
+    icon: TbBeach,
     title: "Alert Dialog",
     href: "/docs/primitives/alert-dialog",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
+    icon: TbBeach,
     title: "Hover Card",
     href: "/docs/primitives/hover-card",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
+    icon: TbBeach,
     title: "Progress",
     href: "/docs/primitives/progress",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
+    icon: TbBeach,
     title: "Scroll-area",
     href: "/docs/primitives/scroll-area",
     description: "Visually or semantically separates content.",
   },
   {
+    icon: TbBeach,
     title: "Tabs",
     href: "/docs/primitives/tabs",
     description:
       "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
+    icon: TbBeach,
     title: "Tooltip",
     href: "/docs/primitives/tooltip",
     description:
@@ -62,38 +74,26 @@ export function NavigationMenuDemo() {
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                <li className="row-span-3">
+                <li className="row-span-3 h-full">
                   <NavigationMenuLink asChild>
-                    <a
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                      href="/"
-                    >
-                      <Icons.logo className="h-6 w-6" />
-                      <div className="mb-2 mt-4 text-lg font-medium">
-                        shadcn/ui
-                      </div>
-                      <p className="text-sm leading-tight text-muted-foreground">
-                        Beautifully designed components that you can copy and
-                        paste into your apps. Accessible. Customizable. Open
-                        Source.
-                      </p>
-                    </a>
+                    <img src={photo} alt="" />
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/docs" title="Introduction">
-                  Re-usable components built using Radix UI and Tailwind CSS.
+                <ListItem href="/docs" title="Tour Planner">
+                  Crafting dreams into luxurious travel realities.
                 </ListItem>
-                <ListItem href="/docs/installation" title="Installation">
-                  How to install dependencies and structure your app.
+
+                <ListItem href="/docs/installation" title="Book a Residence">
+                  Book your luxury haven now!
                 </ListItem>
-                <ListItem href="/docs/primitives/typography" title="Typography">
+                {/* <ListItem href="/docs/primitives/typography" title="Typography">
                   Styles for headings, paragraphs, lists...etc
-                </ListItem>
+                </ListItem> */}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {components.map((component) => (
@@ -102,6 +102,8 @@ export function NavigationMenuDemo() {
                     title={component.title}
                     href={component.href}
                   >
+                    <component.icon />
+
                     {component.description}
                   </ListItem>
                 ))}
@@ -111,7 +113,7 @@ export function NavigationMenuDemo() {
           <NavigationMenuItem>
             {/* <Link href="/docs" legacyBehavior passHref> */}
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
+              Contact Us
             </NavigationMenuLink>
             {/* </Link> */}
           </NavigationMenuItem>
