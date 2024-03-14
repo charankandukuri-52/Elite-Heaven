@@ -1,3 +1,4 @@
+import BrandName from "@/Navbar/BrandName";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,13 +9,22 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { IoCaretBackOutline } from "react-icons/io5";
 const SignUp = () => {
   return (
     <>
-      <div className="w-[100vw] h-[100vh] flex justify-center items-center">
-        <Card className="w-[550px]">
+      <div className="mt-10 cursor-pointer flex md:gap-5 py-5 mx-10">
+        <a href="/" className="">
+          <IoCaretBackOutline size={"37px"} />
+        </a>
+        <a href="/">
+          <BrandName />
+        </a>
+      </div>
+      <div className="w-[100vw] h-[80vh] flex justify-center items-center">
+        <Card className="w-[350px]">
           <CardHeader>
-            <CardTitle>Login</CardTitle>
+            <CardTitle>Sign Up</CardTitle>
           </CardHeader>
           <CardContent>
             <form>

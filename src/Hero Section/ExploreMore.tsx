@@ -20,7 +20,7 @@ export function ExploreMore() {
     },
   ];
   return (
-    <div className="flex flex-col items-center justify-center  h-[20rem] selection:text-white selection:bg-black ">
+    <div className="flex flex-col items-center justify-center  h-[41rem] selection:text-white selection:bg-black ">
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
         Make your Trip Memorable
       </p>

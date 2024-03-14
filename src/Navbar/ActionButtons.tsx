@@ -22,8 +22,8 @@ export const Avatars = () => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src="https://github.com/shadcn.png" alt="@EliteHeaven" />
+          <AvatarFallback>EH</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -46,7 +46,12 @@ const Loginbtn = () => {
   );
 };
 const SignUpbtn = () => {
-  return <Button variant={"outline"}>SignUp</Button>;
+  return (
+    <Button variant={"outline"}>
+      {" "}
+      <a href="/register">Sign Up</a>
+    </Button>
+  );
 };
 
 const ActionButtons = () => {

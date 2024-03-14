@@ -6,8 +6,8 @@ const Hero = () => {
   return (
     <div>
       <ExploreMore />
-      <CategoryGrids />
       <ContainerScrolls />
+      <CategoryGrids />
     </div>
   );
 };

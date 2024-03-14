@@ -3,7 +3,6 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
-  Auth,
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from "./firebase"; // Assuming you have a firebase configuration file
