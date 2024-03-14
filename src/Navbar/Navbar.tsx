@@ -1,9 +1,11 @@
 import { useMediaQuery } from "@/components/hooks/useMediaQuery";
-import ActionButtons from "./ActionButtons";
+import ActionButtons, { Avatars } from "./ActionButtons";
 import { NavigationMenuDemo } from "./AppMenu";
 import BrandName from "./BrandName";
 import { SideNav } from "./MobileView";
+import { useAuth } from "@/Auth/AuthContext";
 const Layout = () => {
+  const { user } = useAuth();
   const isMobile = useMediaQuery("(max-width:768px)");
   const isTablet = useMediaQuery("(max-width:1391px)");
   if (isMobile === true) {
@@ -18,7 +20,7 @@ const Layout = () => {
       <div className="flex justify-evenly gap-5 py-5  border-b-2">
         <SideNav />
         <BrandName />
-        <ActionButtons />
+        {user ? <Avatars /> : <ActionButtons />}
       </div>
     );
   } else {
@@ -26,7 +28,7 @@ const Layout = () => {
       <div className="flex justify-evenly px-5 border-b-2 py-5">
         <BrandName />
         <NavigationMenuDemo />
-        <ActionButtons />
+        {user ? <Avatars /> : <ActionButtons />}
       </div>
     );
   }

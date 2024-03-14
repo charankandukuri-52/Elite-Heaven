@@ -1,3 +1,4 @@
+import { useAuth } from "@/Auth/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,8 +9,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-const Avatars = () => {
+export const Avatars = () => {
+  const { logout } = useAuth();
+  const handleUserLogout = async () => {
+    try {
+      await logout();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -24,14 +32,18 @@ const Avatars = () => {
         <DropdownMenuItem>Profile</DropdownMenuItem>
         <DropdownMenuItem>Billing</DropdownMenuItem>
         <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleUserLogout}>Log Out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 };
 
 const Loginbtn = () => {
-  return <Button>Login</Button>;
+  return (
+    <Button>
+      <a href="/login">Login</a>
+    </Button>
+  );
 };
 const SignUpbtn = () => {
   return <Button variant={"outline"}>SignUp</Button>;
