@@ -5,7 +5,7 @@ import BrandName from "./BrandName";
 import { SideNav } from "./MobileView";
 const Layout = () => {
   const isMobile = useMediaQuery("(max-width:768px)");
-  const isTablet = useMediaQuery("(max-width:1440px)");
+  const isTablet = useMediaQuery("(max-width:1391px)");
   if (isMobile === true) {
     return (
       <div className="flex justify-evenly gap-5 py-5  border-b-2">
