@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "./firebase"; // Assuming you have a firebase configuration file
 
@@ -11,6 +12,7 @@ interface AuthContextType {
   user: any;
   googleSignIn: () => void;
   logout: () => void;
+  signUp: (email: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -36,9 +38,12 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = async () => {
     await signOut(auth);
   };
+  const signUp = async (email: string, password: string) => {
+    await createUserWithEmailAndPassword(auth, email, password);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logout }}>
+    <AuthContext.Provider value={{ user, googleSignIn, logout, signUp }}>
       {children}
     </AuthContext.Provider>
   );
