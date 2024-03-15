@@ -1,5 +1,4 @@
 import Navbars from "../Navbar/Navbar";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "@/lib/image";
 import photo1 from "../../assets/Images/lp1.jpeg";
 import { Card, CardContent } from "@/components/ui/card";
