@@ -8,6 +8,7 @@ import { AuthContextProvider } from "./Auth/AuthContext";
 import ProfileAuth from "./Auth/ProfileAuthentication";
 import TourPlanner from "./Services/TourPlanner";
 import HotelBooking from "./Services/HotelBooking";
+import Listings from "./Pages/Listings/listings-page";
 function App() {
   return (
     <>
@@ -20,6 +21,7 @@ function App() {
               <Route path="/register" element={<SignUp />} />
               <Route path="/tour-planner" element={<TourPlanner />} />
               <Route path="/book-a-stay" element={<HotelBooking />} />
+              <Route path="/listings" element={<Listings />} />
               <Route
                 path="/profile"
                 element={
