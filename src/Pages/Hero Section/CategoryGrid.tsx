@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs } from "../components/ui/Tabs.tsx";
+import { Tabs } from "../../components/ui/Tabs.tsx";
 import photo from "../assets/tourplanner.jpeg";
 export function CategoryGrids() {
   const tabs = [

@@ -1,4 +1,4 @@
-import BrandName from "@/Navbar/BrandName";
+import BrandName from "@/Pages/Navbar/BrandName";
 
 function HotelBooking() {
   return (

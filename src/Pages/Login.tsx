@@ -1,115 +1,88 @@
-import { Button } from "@/components/ui/button";
-import { FaGoogle } from "react-icons/fa";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Auth/AuthContext.tsx";
+import { Button } from "../components/ui/button.tsx";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useAuth } from "@/Auth/AuthContext";
-import Profile from "./Profile";
-import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth"; // Import signInWithEmailAndPassword from firebase
-import { auth } from "@/Auth/firebase";
+} from "../components/ui/card.tsx";
+import { Input } from "../components/ui/input.tsx";
+import { Label } from "../components/ui/label.tsx";
+import { Icons } from "@/components/icons.tsx";
 
-const Login = () => {
-  const { user, googleSignIn, logout } = useAuth();
-  const navigate = useNavigate();
+const Login: React.FC = () => {
+  const { Login } = useAuth();
+  const history = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password); // Use signInWithEmailAndPassword from firebase
-      // Redirect or perform any other actions after successful sign-in
-    } catch (e) {
-      alert(e);
-      // Type assertion for error.message
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    try {
-      await googleSignIn();
-      navigate("/profile");
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (e) {
-      console.log(e);
+      await Login(email, password);
+      history("/profile");
+    } catch (error: any) {
+      setError(error);
     }
   };
 
   return (
     <>
-      {user ? (
-        <Profile />
-      ) : (
-        <div className="w-[100vw] h-[100vh] flex justify-center items-center">
-          <Card className="w-[350px]">
-            <CardHeader>
-              <CardTitle>Login</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSignIn}>
-                <div className="grid w-full items-center gap-4">
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      type="email"
-                      id="email"
-                      placeholder="Enter your email address"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex flex-col space-y-1.5">
-                    <Label htmlFor="password">Password</Label>
-                    <Input
-                      type="password"
-                      id="password"
-                      placeholder="Enter Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex justify-between ">
-                    <Button type="submit">Login</Button>
-                    <Button variant="outline">Register</Button>
-                  </div>
-                </div>
-              </form>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              {user ? (
-                <Button className="flex gap-2" onClick={handleLogout}>
-                  Logout
-                </Button>
-              ) : (
-                <>
-                  <Button
-                    className="flex gap-2 justify-center items-center"
-                    onClick={handleGoogleLogin}
-                  >
-                    {" "}
-                    <FaGoogle /> Sign In with Google
-                  </Button>
-                </>
-              )}
-            </CardFooter>
-          </Card>
-        </div>
-      )}
+      <div className="w-[100vw] h-[100vh] flex justify-center items-center -mt-30">
+        <Card className="w-[450px]">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl">Login</CardTitle>
+            <CardDescription>
+              Enter credentials below to login into your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <div className="flex items-center justify-center">
+              <Button variant="outline">
+                <Icons.google className="mr-2 h-4 w-4" />
+                Google
+              </Button>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or Login with
+                </span>
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button className="w-full " onClick={handleLogin}>
+              Login
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
     </>
   );
 };

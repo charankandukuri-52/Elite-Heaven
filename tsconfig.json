@@ -10,6 +10,7 @@
       "@/*": [
         "./src/*"
       ]
+     
     },
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -18,13 +19,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
+    
+    
+    
+    
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "node_modules/@types"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

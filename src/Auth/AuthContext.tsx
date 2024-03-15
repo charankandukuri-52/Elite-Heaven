@@ -5,11 +5,15 @@ import {
   signOut,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "./firebase"; // Assuming you have a firebase configuration file
+import { auth } from "./firebase";
+import firebase from "firebase/app";
+import "firebase/auth"; // Assuming you have a firebase configuration file
 
 interface AuthContextType {
   user: any;
+  Login: (email: string, password: string) => Promise<void>;
   googleSignIn: () => void;
   logout: () => void;
   signUp: (email: string, password: string) => Promise<void>;
@@ -29,7 +33,14 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
     return unsubscribe;
   }, []);
-
+  const Login = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      console.error("Login failed:", error);
+      throw error;
+    }
+  };
   const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
@@ -43,7 +54,7 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logout, signUp }}>
+    <AuthContext.Provider value={{ user, Login, googleSignIn, logout, signUp }}>
       {children}
     </AuthContext.Provider>
   );

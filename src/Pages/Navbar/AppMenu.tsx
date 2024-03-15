@@ -24,41 +24,41 @@ const components: {
 }[] = [
   {
     icon: TbBeach,
-    title: "Alert Dialog",
+    title: "Beach View",
     href: "/docs/primitives/alert-dialog",
     description:
       "A modal dialog that interrupts the user with important content and expects a response.",
   },
   {
     icon: TbBeach,
-    title: "Hover Card",
+    title: "Palace",
     href: "/docs/primitives/hover-card",
     description:
       "For sighted users to preview content available behind a link.",
   },
   {
     icon: TbBeach,
-    title: "Progress",
+    title: "Goods",
     href: "/docs/primitives/progress",
     description:
       "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
   },
   {
     icon: TbBeach,
-    title: "Scroll-area",
+    title: "Abc",
     href: "/docs/primitives/scroll-area",
     description: "Visually or semantically separates content.",
   },
   {
     icon: TbBeach,
-    title: "Tabs",
+    title: "def",
     href: "/docs/primitives/tabs",
     description:
       "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
   },
   {
     icon: TbBeach,
-    title: "Tooltip",
+    title: "ghi",
     href: "/docs/primitives/tooltip",
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
@@ -71,7 +71,7 @@ export function NavigationMenuDemo() {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Services</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3 h-full">
@@ -79,11 +79,11 @@ export function NavigationMenuDemo() {
                     <img src={photo} alt="" />
                   </NavigationMenuLink>
                 </li>
-                <ListItem href="/docs" title="Tour Planner">
+                <ListItem href="/tour-planner" title="Tour Planner">
                   Crafting dreams into luxurious travel realities.
                 </ListItem>
 
-                <ListItem href="/docs/installation" title="Book a Residence">
+                <ListItem href="/book-a-stay" title="Book a Residence">
                   Book your luxury haven now!
                 </ListItem>
                 {/* <ListItem href="/docs/primitives/typography" title="Typography">

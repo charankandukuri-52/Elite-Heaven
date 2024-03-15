@@ -1,5 +1,5 @@
-import Hero from "@/Hero Section/Hero";
-import Navbars from "@/Navbar/Navbar";
+import Hero from "@/Pages/Hero Section/Hero";
+import Navbars from "@/Pages/Navbar/Navbar";
 import Footer from "./Footer";
 
 const LandingPage = () => {

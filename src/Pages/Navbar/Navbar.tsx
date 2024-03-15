@@ -20,7 +20,7 @@ const Layout = () => {
       <div className="flex justify-evenly gap-5 py-5  border-b-2">
         <SideNav />
         <BrandName />
-        {user ? <Avatars /> : <ActionButtons />}
+        <Avatars />
       </div>
     );
   } else {
@@ -28,7 +28,7 @@ const Layout = () => {
       <div className="flex justify-evenly px-5 border-b-2 py-5">
         <BrandName />
         <NavigationMenuDemo />
-        {user ? <Avatars /> : <ActionButtons />}
+        <Avatars />
       </div>
     );
   }

@@ -1,117 +1,60 @@
-import { useAuth } from "@/Auth/AuthContext";
-import BrandName from "@/Navbar/BrandName";
-import { Button } from "@/components/ui/button";
+"use client";
+
+import { Icons } from "@/components/icons";
+import { Button } from "../components/ui/button.tsx";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { IoCaretBackOutline } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+} from "../components/ui/card.tsx";
+import { Input } from "../components/ui/input.tsx";
+import { Label } from "../components/ui/label.tsx";
 
-const SignUp = () => {
-  const { signUp } = useAuth();
-  const navigate = useNavigate();
-  const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState<any>("");
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-    try {
-      await signUp(email, password);
-      navigate("/profile"); // Redirect to profile page after successful sign-up
-    } catch (error) {
-      setError(error);
-    }
-  };
-
+export default function SignUp() {
   return (
     <>
-      <div className="mt-10 cursor-pointer flex md:gap-5 py-5 mx-10">
-        <a href="/" className="">
-          <IoCaretBackOutline size={"37px"} />
-        </a>
-        <a href="/">
-          <BrandName />
-        </a>
-      </div>
-      <div className="w-[100vw] h-[100vh] flex justify-center items-center">
-        <Card className="w-[350px]">
-          <CardHeader>
-            <CardTitle>Sign Up</CardTitle>
+      <div className="w-[100vw] h-[100vh] flex justify-center items-center -mt-30">
+        <Card className="w-[450px]">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl">Create an account</CardTitle>
+            <CardDescription>
+              Enter your email below to create your account
+            </CardDescription>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSignUp}>
-              <div className="grid w-full items-center gap-4">
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="displayName">Full Name</Label>
-                  <Input
-                    type="text"
-                    id="displayName"
-                    placeholder="Enter your full name"
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="confirmPassword">Confirm Password</Label>
-                  <Input
-                    type="password"
-                    id="confirmPassword"
-                    placeholder="Confirm password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </div>
-                <Button type="submit">Sign Up</Button>
+          <CardContent className="grid gap-4">
+            <div className="flex items-center justify-center">
+              <Button variant="outline">
+                <Icons.google className="mr-2 h-4 w-4" />
+                Google
+              </Button>
+            </div>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
               </div>
-            </form>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" placeholder="m@example.com" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" />
+            </div>
           </CardContent>
-          {error && <div className="text-red-500">{error.toString()}</div>}
           <CardFooter>
-            <p>
-              Already have an account?{" "}
-              <Link to="/login" className="text-blue-500">
-                Log in
-              </Link>
-            </p>
+            <Button className="w-full">Create account</Button>
           </CardFooter>
         </Card>
       </div>
     </>
   );
-};
-
-export default SignUp;
+}

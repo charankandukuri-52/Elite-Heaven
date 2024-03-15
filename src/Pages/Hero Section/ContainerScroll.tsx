@@ -1,5 +1,5 @@
 "use client";
-import { ContainerScroll } from "../components/ui/container-scroll.tsx";
+import { ContainerScroll } from "../../components/ui/container-scroll.tsx";
 
 export function ContainerScrolls() {
   return (

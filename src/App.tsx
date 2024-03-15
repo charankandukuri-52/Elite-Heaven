@@ -6,6 +6,8 @@ import LandingPage from "./Pages/LandingPage";
 import Profile from "./Pages/Profile";
 import { AuthContextProvider } from "./Auth/AuthContext";
 import ProfileAuth from "./Auth/ProfileAuthentication";
+import TourPlanner from "./Services/TourPlanner";
+import HotelBooking from "./Services/HotelBooking";
 function App() {
   return (
     <>
@@ -16,6 +18,8 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<SignUp />} />
+              <Route path="/tour-planner" element={<TourPlanner />} />
+              <Route path="/book-a-stay" element={<HotelBooking />} />
               <Route
                 path="/profile"
                 element={
