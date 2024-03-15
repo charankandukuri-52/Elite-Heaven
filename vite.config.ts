@@ -13,6 +13,7 @@ export default defineConfig({
    'process.env.VITE_messagingSenderId': JSON.stringify(process.env.VITE_apiKey),
    'process.env.VITE_appId': JSON.stringify(process.env.VITE_apiKey),
    'process.env.VITE_measurementId': JSON.stringify(process.env.VITE_apiKey),
+   'process.env.VITE_BARD_API_KEY': JSON.stringify(process.env.VITE_BARD_API_KEY),
   },
   resolve: {
     alias: {

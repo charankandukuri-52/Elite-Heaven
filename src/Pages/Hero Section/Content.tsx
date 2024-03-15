@@ -1,5 +1,5 @@
-import phot1 from "../assets/lp1.jpeg";
-import phot2 from "../assets/lp2.jpeg";
+import phot1 from "../../assets/Images/lp1.jpeg";
+import phot2 from "../../assets/Images/lp2.jpeg";
 const Content = () => {
   return (
     <section className="bg-white dark:bg-gray-900 py-10">

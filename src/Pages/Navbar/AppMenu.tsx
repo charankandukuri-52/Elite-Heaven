@@ -2,7 +2,7 @@
 
 import * as React from "react";
 // import Link from "react-router-dom";
-import photo from "../assets/menu-background.jpeg";
+import photo from "../../assets/Images/menu-background.jpeg";
 import { cn } from "@/lib/utils";
 import { TbBeach } from "react-icons/tb";
 import {
