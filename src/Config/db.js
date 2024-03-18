@@ -19,5 +19,9 @@ const connectDB = async () => {
         process.exit(1); 
     }
 };
+mongoose.connection.once('close', () => {
+    console.log('MongoDB connection closed');
+    process.exit(0); 
+});
 
 export default connectDB;
