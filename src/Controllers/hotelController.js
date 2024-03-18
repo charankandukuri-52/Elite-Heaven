@@ -12,40 +12,36 @@ export const getHotelData = async (req, res) => {
     }
 };
 
-
-export const getHotelDataByCity = async (req, res) => {
+const filterByQueryParameter = async (req, res, queryField, queryValue) => {
     try {
-        const { city } = req.query;
         const db = await connectDB();
         const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ city }).toArray();
+        const query = {};
+        query[queryField] = queryValue;
+        const data = await collection.find(query).toArray();
         res.json(data);
     } catch (error) {
-        console.error('Error fetching hotel data by city:', error);
+        console.error(`Error filtering by ${queryField}:`, error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
+};
+
+export const getHotelDataByCity = async (req, res) => {
+    const { city } = req.query;
+    filterByQueryParameter(req, res, 'city', city);
 };
 
 export const getHotelDataByNeighborhood = async (req, res) => {
-    try {
-        const { neighborhood } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ neighborhood }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error fetching hotel data by neighborhood:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { neighborhood } = req.query;
+    filterByQueryParameter(req, res, 'neighborhood', neighborhood);
 };
-
 
 export const getHotelDataByDistance = async (req, res) => {
     try {
         const { distance } = req.query;
+        const [longitude, latitude] = distance.split(',').map(parseFloat);
         const db = await connectDB();
         const collection = db.collection(process.env.Collection_Name);
-        const [longitude, latitude] = distance.split(',').map(parseFloat);
         const query = {
             location: {
                 $near: {
@@ -56,7 +52,6 @@ export const getHotelDataByDistance = async (req, res) => {
                 }
             }
         };
-
         const data = await collection.find(query).toArray();
         res.json(data);
     } catch (error) {
@@ -65,25 +60,16 @@ export const getHotelDataByDistance = async (req, res) => {
     }
 };
 
-
 export const getHotelDataByGuestsIncluded = async (req, res) => {
-    try {
-        const { guests_included } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ guests_included: parseInt(guests_included) }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error fetching hotel data:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { guests_included } = req.query;
+    filterByQueryParameter(req, res, 'guests_included', parseInt(guests_included));
 };
 
 export const filterByCheckInOutDates = async (req, res) => {
+    const { check_in, check_out } = req.query;
+    const checkInDate = new Date(check_in);
+    const checkOutDate = new Date(check_out);
     try {
-        const { check_in, check_out } = req.query;
-        const checkInDate = new Date(check_in);
-        const checkOutDate = new Date(check_out);
         const db = await connectDB();
         const collection = db.collection(process.env.Collection_Name);
         const data = await collection.find({
@@ -98,86 +84,38 @@ export const filterByCheckInOutDates = async (req, res) => {
 };
 
 export const filterByAvailabilityDates = async (req, res) => {
-    try {
-        const { available_from, available_to } = req.query;
-        const startDate = new Date(available_from);
-        const endDate = new Date(available_to);
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({
-            available_from: { $lte: endDate },
-            available_to: { $gte: startDate }
-        }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by availability dates:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-};
-export const filterByPropertyType = async (req, res) => {
-    try {
-        const { type } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ property_type: type }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by property type:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { available_from, available_to } = req.query;
+    const startDate = new Date(available_from);
+    const endDate = new Date(available_to);
+    filterByQueryParameter(req, res, {
+        available_from: { $lte: endDate },
+        available_to: { $gte: startDate }
+    });
 };
 
+export const filterByPropertyType = async (req, res) => {
+    const { type } = req.query;
+    filterByQueryParameter(req, res, 'property_type', type);
+};
 
 export const filterByGuests = async (req, res) => {
-    try {
-        const { guests } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ guests_included: parseInt(guests) }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by guests:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { guests } = req.query;
+    filterByQueryParameter(req, res, 'guests_included', parseInt(guests));
 };
 
 export const filterByBedrooms = async (req, res) => {
-    try {
-        const { bedrooms } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ bedrooms: parseInt(bedrooms) }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by bedrooms:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { bedrooms } = req.query;
+    filterByQueryParameter(req, res, 'bedrooms', parseInt(bedrooms));
 };
 
 export const filterByBeds = async (req, res) => {
-    try {
-        const { beds } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ beds: parseInt(beds) }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by beds:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { beds } = req.query;
+    filterByQueryParameter(req, res, 'beds', parseInt(beds));
 };
 
 export const filterByBathrooms = async (req, res) => {
-    try {
-        const { bathrooms } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ bathrooms: parseInt(bathrooms) }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by bathrooms:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { bathrooms } = req.query;
+    filterByQueryParameter(req, res, 'bathrooms', parseInt(bathrooms));
 };
 
 export const getRandomAmenities = async (req, res) => {
@@ -185,12 +123,9 @@ export const getRandomAmenities = async (req, res) => {
         const amenities = ["TV", "Wifi", "Kitchen", "Heating", "Family/kid friendly", "Washer", "Essentials", "Hangers", "Hair dryer", "Iron", "Hot water", "Bed linens", "Microwave", "Coffee maker", "Refrigerator", "Dishwasher", "Oven", "Stove"];
         const basicAmenity = amenities[Math.floor(Math.random() * amenities.length)];
         const additionalAmenity = amenities[Math.floor(Math.random() * amenities.length)];
-        
         const db = await connectDB();
         const collection = db.collection(process.env.Collection_Name);
-        
         const data = await collection.find({ basic_amenities: basicAmenity, additional_amenities: additionalAmenity }).toArray();
-        
         res.json(data);
     } catch (error) {
         console.error('Error getting random amenities:', error);
@@ -199,86 +134,33 @@ export const getRandomAmenities = async (req, res) => {
 };
 
 export const filterByMinAndMaxPrice = async (req, res) => {
-    try {
-        const { min_price, max_price } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        
-        const minPrice = parseFloat(min_price);
-        const maxPrice = parseFloat(max_price);
-        const data = await collection.find({ 
-            price: { $gte: minPrice, $lte: maxPrice } 
-        }).toArray();
-
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by price range:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { min_price, max_price } = req.query;
+    const minPrice = parseFloat(min_price);
+    const maxPrice = parseFloat(max_price);
+    filterByQueryParameter(req, res, 'price', { $gte: minPrice, $lte: maxPrice });
 };
+
 export const filterByPriceRange = async (req, res) => {
-    try {
-        const { price_range } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const [minPrice, maxPrice] = price_range.split('-').map(parseFloat);
-        const data = await collection.find({ 
-            price: { $gte: minPrice, $lte: maxPrice } 
-        }).toArray();
-
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by price range:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { price_range } = req.query;
+    const [minPrice, maxPrice] = price_range.split('-').map(parseFloat);
+    filterByQueryParameter(req, res, 'price', { $gte: minPrice, $lte: maxPrice });
 };
+
 export const filterByMinRating = async (req, res) => {
-    try {
-        const { min_rating } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ rating: { $gte: min_rating } }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by minimum rating:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { min_rating } = req.query;
+    filterByQueryParameter(req, res, 'rating', { $gte: min_rating });
 };
 
 export const filterBySuperhostStatus = async (req, res) => {
-    try {
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ superhost: true }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by superhost status:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    filterByQueryParameter(req, res, 'superhost', true);
 };
 
 export const filterByReviewCount = async (req, res) => {
-    try {
-        const { reviews } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ review_count: reviews }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by review count:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { reviews } = req.query;
+    filterByQueryParameter(req, res, 'review_count', reviews);
 };
 
 export const filterByReviewScore = async (req, res) => {
-    try {
-        const { review_score } = req.query;
-        const db = await connectDB();
-        const collection = db.collection(process.env.Collection_Name);
-        const data = await collection.find({ review_score: review_score }).toArray();
-        res.json(data);
-    } catch (error) {
-        console.error('Error filtering by review score:', error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
+    const { review_score } = req.query;
+    filterByQueryParameter(req, res, 'review_score', review_score);
 };
