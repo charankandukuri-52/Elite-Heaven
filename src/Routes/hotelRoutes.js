@@ -1,6 +1,5 @@
-// routes/hotelRoutes.js
 import express from 'express';
-import {getHotelData, filterByPropertyType,getHotelDataByCity, getHotelDataByNeighborhood, getHotelDataByDistance,filterByGuests, filterByBedrooms, filterByBeds, filterByBathrooms, getHotelDataByGuestsIncluded,filterByCheckInOutDates, filterByAvailabilityDates } from '../Controllers/hotelController.js';
+import {getHotelData,filterByMinRating, filterBySuperhostStatus, filterByReviewCount, filterByReviewScore, filterByMinAndMaxPrice, filterByPriceRange, filterByPropertyType,getHotelDataByCity, getHotelDataByNeighborhood, getHotelDataByDistance,filterByGuests, filterByBedrooms, filterByBeds, filterByBathrooms, getHotelDataByGuestsIncluded,filterByCheckInOutDates, filterByAvailabilityDates } from '../Controllers/hotelController.js';
 
 const router = express.Router();
 
@@ -16,5 +15,11 @@ router.get('/accommodations/guests', filterByGuests);
 router.get('/accommodations/bedrooms', filterByBedrooms);
 router.get('/accommodations/beds', filterByBeds);
 router.get('/accommodations/bathrooms', filterByBathrooms);
+router.get('/accommodations/min-max', filterByMinAndMaxPrice);
+router.get('/accommodations/price-range', filterByPriceRange);
+router.get('/accommodations/min-rating', filterByMinRating);
+router.get('/accommodations/superhost', filterBySuperhostStatus);
+router.get('/accommodations/reviews', filterByReviewCount);
+router.get('/accommodations/review-score', filterByReviewScore);
 
 export default router;
