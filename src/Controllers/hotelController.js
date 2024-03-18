@@ -164,3 +164,30 @@ export const filterByReviewScore = async (req, res) => {
     const { review_score } = req.query;
     filterByQueryParameter(req, res, 'review_score', review_score);
 };
+export const filterByInstantBook = async (req, res) => {
+    filterByQueryParameter(req, res, 'instant_book', true);
+};
+
+export const filterByCancellationPolicy = async (req, res) => {
+    const { cancellation_policy } = req.query;
+    filterByQueryParameter(req, res, 'cancellation_policy', cancellation_policy);
+};
+
+export const filterByAccessibility = async (req, res) => {
+    const { accessibility } = req.query;
+    filterByQueryParameter(req, res, 'accessibility', accessibility);
+};
+
+export const filterByHouseRules = async (req, res) => {
+    const { smoking_allowed, pets_allowed, events_allowed } = req.query;
+    const query = {};
+    if (smoking_allowed) query.smoking_allowed = true;
+    if (pets_allowed) query.pets_allowed = true;
+    if (events_allowed) query.events_allowed = true;
+    filterByQueryParameter(req, res, query);
+};
+
+export const filterByPropertyFacilities = async (req, res) => {
+    const { facilities } = req.query;
+    filterByQueryParameter(req, res, 'facilities', facilities);
+};
