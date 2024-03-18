@@ -1,6 +1,6 @@
 // app.js
 import express from 'express';
-import connectDB from './src/Config/db.js'; // Import the db.js file using the .js extension
+import connectDB from './src/Config/db.js'; 
 import dotenv from 'dotenv'
 dotenv.config({
     path:'./.env'
