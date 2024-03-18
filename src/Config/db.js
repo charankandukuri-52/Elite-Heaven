@@ -1,27 +1,27 @@
-import dotenv from 'dotenv'
-import mongoose from 'mongoose';
-dotenv.config({
-    path: '../../.env'
-})
+// db.js
+import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../../.env' });
+
 const connectDB = async () => {
     try {
-       
-        const mongoURI = process.env.MONGO_DB_URL;
-        const options = {
+        const uri = process.env.MONGO_DB_URL;
+        const client = new MongoClient(uri, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-        };
-        await mongoose.connect(mongoURI, options);
+        });
 
-        console.log('MongoDB connected successfully');
+        await client.connect();
+        console.log('Connected to MongoDB');
+
+        const db = client.db(process.env.DB_NAME);
+
+        return db;
     } catch (error) {
-        console.log('MongoDB connection error:', error);
-        process.exit(1); 
+        console.error('MongoDB connection error:', error);
+        process.exit(1);
     }
 };
-mongoose.connection.once('close', () => {
-    console.log('MongoDB connection closed');
-    process.exit(0); 
-});
 
 export default connectDB;
