@@ -5,14 +5,14 @@ import dotenv from 'dotenv'
 dotenv.config({
     path:'./.env'
 })
-// Initialize Express app
+
 const app = express();
 
 
 await connectDB();
 
 
-// const PORT = process.env.PORT || 3000;
+
 app.listen(3001, () => {
     console.log(`Server is running on port 3001`);
 });
