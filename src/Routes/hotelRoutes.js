@@ -34,7 +34,7 @@ router.get('/accommodations/distance', getHotelDataByDistance);
 router.get('/accommodations/guests_included', getHotelDataByGuestsIncluded);
 router.get('/accommodations/checkInOut', filterByCheckInOutDates);
 router.get('/accommodations/availability', filterByAvailabilityDates);
-router.get('/accommodations', filterByPropertyType);
+router.get('/accommodations/pro', filterByPropertyType);
 router.get('/accommodations/guests', filterByGuests);
 router.get('/accommodations/bedrooms', filterByBedrooms);
 router.get('/accommodations/beds', filterByBeds);
